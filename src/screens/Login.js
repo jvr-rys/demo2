@@ -1,10 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Link, Center } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = () => {
+const LoginScreen = ({ setIsAuthenticated }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const navigation = useNavigation();
+
+    const handleLogin = () => {
+        // Aquí puedes simular una validación de usuario
+        if (email && password) { // Condición simple
+            setIsAuthenticated(true); // Cambiar el estado a autenticado
+            navigation.navigate('MainTab'); // Navegar a MainTab después de iniciar sesión
+        } else {
+            alert('Please enter your credentials'); // Mensaje de error simple
+        }
+    };
 
     return (
         <Center w="100%">
@@ -23,11 +35,11 @@ const LoginScreen = () => {
                 <VStack space={3} mt="5">
                     <FormControl>
                         <FormControl.Label>Email</FormControl.Label>
-                        <Input />
+                        <Input value={email} onChangeText={setEmail} />
                     </FormControl>
                     <FormControl>
                         <FormControl.Label>Password</FormControl.Label>
-                        <Input type="password" />
+                        <Input type="password" value={password} onChangeText={setPassword} />
                         <Link _text={{
                             fontSize: "xs",
                             fontWeight: "500",
@@ -36,7 +48,7 @@ const LoginScreen = () => {
                             Forget Password?
                         </Link>
                     </FormControl>
-                    <Button mt="2" colorScheme="indigo" onPress={() => navigation.navigate('MainTab')}>
+                    <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
                         Login
                     </Button>
                     <HStack mt="6" justifyContent="center">
@@ -45,13 +57,12 @@ const LoginScreen = () => {
                         }}>
                             I'm a new user. 
                             <Button
-                            variant="link"
-                            colorScheme="indigo"
-                            onPress={() => navigation.navigate('Register')}>
-                            Register
+                                variant="link"
+                                colorScheme="indigo"
+                                onPress={() => navigation.navigate('Register')}>
+                                Register
                             </Button>
                         </Text>
-                        
                     </HStack>
                 </VStack>
             </Box>
