@@ -11,11 +11,10 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
 
     const handleRegister = () => {
         if (password === confirmPassword) {
-            // Aquí se simula un registro exitoso
-            setIsAuthenticated(true); // Cambiar el estado a autenticado
-            navigation.navigate('MainTab'); // Navegar a MainTab después de registrarse
+            setIsAuthenticated(true); 
+            navigation.navigate('MainTab'); 
         } else {
-            alert('Passwords do not match'); // Mensaje de error simple
+            alert('Passwords do not match'); 
         }
     };
 

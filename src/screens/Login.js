@@ -9,12 +9,11 @@ const LoginScreen = ({ setIsAuthenticated }) => {
     const navigation = useNavigation();
 
     const handleLogin = () => {
-        // Aquí puedes simular una validación de usuario
-        if (email && password) { // Condición simple
-            setIsAuthenticated(true); // Cambiar el estado a autenticado
-            navigation.navigate('MainTab'); // Navegar a MainTab después de iniciar sesión
+        if (email && password) { 
+            setIsAuthenticated(true);
+            navigation.navigate('MainTab'); 
         } else {
-            alert('Please enter your credentials'); // Mensaje de error simple
+            alert('Please enter your credentials'); 
         }
     };
 
