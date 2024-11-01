@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
-import { NativeBaseProvider } from 'native-base';
+import { Box, NativeBaseProvider, VStack, useColorModeValue } from 'native-base';
+import theme from './theme';
+import ToggleDarkMode from './ToggleDarkMode';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/screens/Home';
 import Reports from './src/screens/Reports';
@@ -43,24 +45,29 @@ const MainTab = () => {
       <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
       <Tab.Screen name="Config" component={Config} options={{ headerShown: false }} />
     </Tab.Navigator>
-  )
+  );
 }
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "Login"}>
-          <Stack.Screen name="Login" options={{ headerShown: false }}>
-            {() => <Login setIsAuthenticated={setIsAuthenticated} />}
-          </Stack.Screen>
-          <Stack.Screen name="Register" options={{ headerShown: false }}>
-            {() => <Register setIsAuthenticated={setIsAuthenticated} />}
-          </Stack.Screen>
-          <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
-        </Stack.Navigator>
+        <VStack flex={1} bg={useColorModeValue("light.background.50", "dark.background.900")}>
+          <Box safeAreaTop bg={useColorModeValue('light.background.100', 'dark.background.900')}>
+            <ToggleDarkMode />
+          </Box>
+          <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "Login"}>
+            <Stack.Screen name="Login" options={{ headerShown: false }}>
+              {() => <Login setIsAuthenticated={setIsAuthenticated} />}
+            </Stack.Screen>
+            <Stack.Screen name="Register" options={{ headerShown: false }}>
+              {() => <Register setIsAuthenticated={setIsAuthenticated} />}
+            </Stack.Screen>
+            <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
+          </Stack.Navigator>
+        </VStack>
       </NavigationContainer>
     </NativeBaseProvider>
   );
