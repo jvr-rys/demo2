@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
-import { Box, NativeBaseProvider, VStack, useColorModeValue } from 'native-base';
+import { Box, NativeBaseProvider, Spacer, VStack, useColorModeValue } from 'native-base';
 import theme from './theme';
 import ToggleDarkMode from './ToggleDarkMode';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,6 +13,7 @@ import Profile from './src/screens/Profile';
 import Config from './src/screens/Config';
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
+import { SafeAreaView } from "react-native-web";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,10 +54,11 @@ const App = () => {
 
   return (
     <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer >
+        <SafeAreaView style={{ flex: 1}}>
         <VStack flex={1} bg={useColorModeValue("light.background.50", 
           "dark.background.900")}>
-          <Box safeAreaTop bg={useColorModeValue('light.background.100', 
+          <Box position="absolute" zIndex={10} right={4} bg={useColorModeValue('light.background.50', 
             'dark.background.900')}>
             <ToggleDarkMode />
           </Box>
@@ -71,6 +73,7 @@ const App = () => {
             <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
           </Stack.Navigator>
         </VStack>
+        </SafeAreaView>
       </NavigationContainer>
     </NativeBaseProvider>
   );

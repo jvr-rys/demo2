@@ -28,18 +28,18 @@ const LoginScreen = ({ setIsAuthenticated }) => {
         <Center w="100%" bg={bgColor} flex={1}>
             <Image 
                 source={require('../../assets/icon.png')} 
-                style={{ width: '100%', height: 200, marginBottom: 20 }} 
+                style={{ width: '100%', height: 200, marginBottom: 2 }} 
                 resizeMode="contain"
             />
             <Box safeArea p="2" py="8" w="90%" maxW="290">
                 <Heading size="lg" fontWeight="600" color={textColor}>
                     Welcome
                 </Heading>
-                <Heading mt="1" color={textColor} fontWeight="medium" size="xs">
+                <Heading mt="2" color={textColor} fontWeight="medium" size="xs">
                     Sign in to continue!
                 </Heading>
 
-                <VStack space={3} mt="5">
+                <VStack space={1} mt="2">
                     <FormControl>
                         <FormControl.Label>Email</FormControl.Label>
                         <Input value={email} onChangeText={setEmail} />
@@ -51,14 +51,14 @@ const LoginScreen = ({ setIsAuthenticated }) => {
                             fontSize: "xs",
                             fontWeight: "500",
                             color: linkColor 
-                        }} alignSelf="flex-end" mt="1">
+                        }} alignSelf="flex-end" mt="2">
                             Forget Password?
                         </Link>
                     </FormControl>
                     <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
                         Login
                     </Button>
-                    <HStack mt="6" justifyContent="center">
+                    <HStack mt="2" justifyContent="center">
                         <Text fontSize="sm" color={textColor}>
                             I'm a new user. 
                             <Button

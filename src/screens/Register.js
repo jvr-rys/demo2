@@ -35,7 +35,7 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
                 <Heading mt="1" color={textColor} fontWeight="medium" size="xs">
                     Sign in to continue!
                 </Heading>
-                <VStack space={3} mt="5">
+                <VStack space={1} mt="2">
                     <FormControl>
                         <FormControl.Label>Email</FormControl.Label>
                         <Input value={email} onChangeText={setEmail} />
@@ -48,11 +48,11 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
                         <FormControl.Label>Confirm Password</FormControl.Label>
                         <Input type="password" value={confirmPassword} onChangeText={setConfirmPassword} />
                     </FormControl>
-                    <Button mt="2" colorScheme="indigo" onPress={handleRegister}>
+                    <Button mt="3" colorScheme="indigo" onPress={handleRegister}>
                         Register
                     </Button>
-                    <HStack mt="6" justifyContent="center">
-                        <Text fontSize="sm" ccolor={textColor}>
+                    <HStack mt="2" justifyContent="center">
+                        <Text fontSize="sm" color={textColor}>
                             Already have an account? 
                             <Button variant="link" colorScheme="indigo" onPress={() => navigation.navigate('Login')}>
                                 Login

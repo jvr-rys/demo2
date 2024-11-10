@@ -1,26 +1,24 @@
 import { View } from 'react-native';
-import { Center, Text, Flex, Spacer } from 'native-base';
+import { Center, Text, Flex, Spacer, useColorModeValue } from 'native-base';
 
 const ReportScreen = () => {
-    return (
-        <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
-            <Example/>
-        </View>
-    );
-}
-
-const Example = () => {
+    const bgColor = useColorModeValue('light.background.50', 
+        'dark.background.900');
+    const textColor = useColorModeValue('light.text.50', 'dark.text.50');
+    const linkColor = useColorModeValue("indigo.500", "indigo.300"); 
     return(
+        <Center flex={1} bg={bgColor}>
         <Flex h={40} alignItems="center">
-            <Center size={16} bg="primary.500" _dark={{bg: "dark.background.600"}} rounded="ms" _text={{color:"warmGray.50", fontWeight:"medium"}}>
+            <Center size={16} bg="primary.500" rounded="ms" _text={{color:"warmGray.50", fontWeight:"medium"}}>
                 Box 1
             </Center>
             <Spacer/>
-            <Center size={16} bg="primary.500" _dark={{bg: "dark.background.600"}} rounded="ms" _text={{color:"warmGray.50", fontWeight:"medium"}}>
+            <Center size={16} bg="primary.500" rounded="ms" _text={{color:"warmGray.50", fontWeight:"medium"}}>
                 Box 2
             </Center>
         </Flex>
+        </Center>
     );
-};
+}
 
 export default ReportScreen;
