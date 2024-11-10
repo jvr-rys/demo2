@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Text, Image } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Link, Center, useColorModeValue, useBreakpointValue } from "native-base";
+import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, 
+    Input, Button, Link, Center, useColorModeValue } 
+    from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = ({ setIsAuthenticated }) => {
@@ -8,11 +10,10 @@ const LoginScreen = ({ setIsAuthenticated }) => {
     const [password, setPassword] = useState('');
     const navigation = useNavigation();
 
-    const bgColor = useColorModeValue('light.background.50', 'dark.background.900');
+    const bgColor = useColorModeValue('light.background.50', 
+        'dark.background.900');
     const textColor = useColorModeValue('light.text.50', 'dark.text.50');
     const linkColor = useColorModeValue("indigo.500", "indigo.300"); 
-
-    const flexDir = useBreakpointValue({ base: 'column', lg: 'row' });
 
     const handleLogin = () => {
         if (email && password) { 
@@ -38,7 +39,7 @@ const LoginScreen = ({ setIsAuthenticated }) => {
                     Sign in to continue!
                 </Heading>
 
-                <VStack space={3} mt="5" flexDirection={flexDir}>
+                <VStack space={3} mt="5">
                     <FormControl>
                         <FormControl.Label>Email</FormControl.Label>
                         <Input value={email} onChangeText={setEmail} />

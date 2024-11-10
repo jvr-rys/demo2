@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Image } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Center, useColorModeValue, useBreakpointValue } from "native-base";
+import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Center, useColorModeValue } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
 const RegisterScreen = ({ setIsAuthenticated }) => {
@@ -11,8 +11,6 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
 
     const bgColor = useColorModeValue('light.background.50', 'dark.background.900');
     const textColor = useColorModeValue('light.text.50', 'dark.text.50');
-
-    const flexDir = useBreakpointValue({ base: 'column', lg: 'row' });
 
     const handleRegister = () => {
         if (password === confirmPassword) {
@@ -37,7 +35,7 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
                 <Heading mt="1" color={textColor} fontWeight="medium" size="xs">
                     Sign in to continue!
                 </Heading>
-                <VStack space={3} mt="5" flexDirection={flexDir}>
+                <VStack space={3} mt="5">
                     <FormControl>
                         <FormControl.Label>Email</FormControl.Label>
                         <Input value={email} onChangeText={setEmail} />

@@ -54,11 +54,14 @@ const App = () => {
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
-        <VStack flex={1} bg={useColorModeValue("light.background.50", "dark.background.900")}>
-          <Box safeAreaTop bg={useColorModeValue('light.background.100', 'dark.background.900')}>
+        <VStack flex={1} bg={useColorModeValue("light.background.50", 
+          "dark.background.900")}>
+          <Box safeAreaTop bg={useColorModeValue('light.background.100', 
+            'dark.background.900')}>
             <ToggleDarkMode />
           </Box>
-          <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : "Login"}>
+          <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" : 
+            "Login"}>
             <Stack.Screen name="Login" options={{ headerShown: false }}>
               {() => <Login setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
