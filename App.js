@@ -13,7 +13,8 @@ import Profile from './src/screens/Profile';
 import Config from './src/screens/Config';
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
-import ProfileSummary from './src/screens/ProfileSummary'
+import ProfileSummary from './src/screens/ProfileSummary';
+import Alert from './src/screens/Alert';
 import { SafeAreaView } from "react-native-web";
 
 const Tab = createBottomTabNavigator();
@@ -72,7 +73,8 @@ const App = () => {
               {() => <Register setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
             <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
-            <Stack.Screen name="ProfileSummary" component={ProfileSummary} options={{headerShown: false}} />
+            <Stack.Screen name="ProfileSummary" component={ProfileSummary}/>
+            <Stack.Screen name="Alert" component={Alert}/>
           </Stack.Navigator>
         </VStack>
         </SafeAreaView>

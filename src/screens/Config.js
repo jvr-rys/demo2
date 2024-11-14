@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Box, HStack, Switch, Text, VStack, Icon, Center, useToast } from 'native-base';
+import { Box, HStack, Switch, Text, VStack, Icon, Center, useToast, Button } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 
-const Config = () => {
+const Config = ({ navigation }) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const [emailNotifications, setEmailNotifications] = useState(false);
     const [pushNotifications, setPushNotifications] = useState(false);
@@ -81,6 +81,17 @@ const Config = () => {
                         </VStack>
                     )}
                 </VStack>
+                <Button
+                onPress={() => navigation.navigate('Alert')}
+                size="lg"
+                width="80%"
+                _text={{ fontWeight: 'bold' }}
+                bg="secondary.500"
+                _pressed={{ bg: 'secondary.600' }}
+                shadow={3}
+            >
+                Alertas
+            </Button>
             </Box>
         </Center>
     );
