@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Image } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, 
-    Input, Button, Link, Center, useColorModeValue } 
+    Input, Button, Link, Center, useColorModeValue, useColorMode } 
     from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
@@ -14,6 +14,7 @@ const LoginScreen = ({ setIsAuthenticated }) => {
         'dark.background.900');
     const textColor = useColorModeValue('light.text.50', 'dark.text.50');
     const linkColor = useColorModeValue("indigo.500", "indigo.300"); 
+    const { colorMode } = useColorMode();
 
     const handleLogin = () => {
         if (email && password) { 
@@ -26,9 +27,13 @@ const LoginScreen = ({ setIsAuthenticated }) => {
 
     return (
         <Center w="100%" bg={bgColor} flex={1}>
-            <Image 
-                source={require('../../assets/icon.png')} 
-                style={{ width: '100%', height: 200, marginBottom: 2 }} 
+            <Image
+                source={
+                    colorMode === 'dark'
+                        ? require('../../assets/SafeLab_app_dark.png') 
+                        : require('../../assets/SafeLab_app.png') 
+                }
+                style={{ width: '100%', height: 500, marginBottom: 2 }}
                 resizeMode="contain"
             />
             <Box safeArea p="2" py="8" w="90%" maxW="290">

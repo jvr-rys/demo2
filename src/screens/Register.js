@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Image } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Center, useColorModeValue } from "native-base";
+import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Center, useColorModeValue, useColorMode } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
 const RegisterScreen = ({ setIsAuthenticated }) => {
@@ -11,21 +11,26 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
 
     const bgColor = useColorModeValue('light.background.50', 'dark.background.900');
     const textColor = useColorModeValue('light.text.50', 'dark.text.50');
+    const { colorMode } = useColorMode();
 
     const handleRegister = () => {
         if (password === confirmPassword) {
-            setIsAuthenticated(true); 
-            navigation.navigate('MainTab'); 
+            setIsAuthenticated(true);
+            navigation.navigate('MainTab');
         } else {
-            alert('Passwords do not match'); 
+            alert('Passwords do not match');
         }
     };
 
     return (
         <Center w="100%" bg={bgColor} flex={1}>
-            <Image 
-                source={require('../../assets/icon.png')} 
-                style={{ width: '100%', height: 200, marginBottom: 20 }} 
+            <Image
+                source={
+                    colorMode === 'dark'
+                        ? require('../../assets/SafeLab_app_dark.png') 
+                        : require('../../assets/SafeLab_app.png') 
+                }
+                style={{ width: '100%', height: 500, marginBottom: 2 }}
                 resizeMode="contain"
             />
             <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -53,7 +58,7 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
                     </Button>
                     <HStack mt="2" justifyContent="center">
                         <Text fontSize="sm" color={textColor}>
-                            Already have an account? 
+                            Already have an account?
                             <Button variant="link" colorScheme="indigo" onPress={() => navigation.navigate('Login')}>
                                 Login
                             </Button>
