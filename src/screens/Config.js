@@ -1,100 +1,88 @@
 import React, { useState } from 'react';
-import { Box, HStack, Switch, Text, VStack, Icon, Center, useToast, Button } from 'native-base';
-import { Ionicons } from '@expo/vector-icons';
+import { KeyboardAvoidingView, Platform, FlatList, SectionList } from 'react-native';
+import { NativeBaseProvider, ScrollView, StatusBar, Box, Text, Input, Button, View } from 'native-base';
 
-const Config = ({ navigation }) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const [emailNotifications, setEmailNotifications] = useState(false);
-    const [pushNotifications, setPushNotifications] = useState(false);
-    const toast = useToast();
+const ConfigScreen = () => {
+  // Datos para FlatList
+  const [items, setItems] = useState([
+    { id: '1', name: 'Item 1' },
+    { id: '2', name: 'Item 2' },
+    { id: '3', name: 'Item 3' },
+    { id: '4', name: 'Item 4' },
+    { id: '5', name: 'Item 5' },
+    { id: '6', name: 'Item 6' },
+  ]);
 
-    const toggleMainNotification = () => {
-        setIsEnabled(!isEnabled);
-        toast.show({
-            description: `Notificaciones ${!isEnabled ? 'activadas' : 'desactivadas'}`,
-            bg: !isEnabled ? "teal.500" : "red.500",
-            duration: 2000,
-        });
+  // Datos para SectionList
+  const sections = [
+    { title: 'Section 1', data: ['A', 'B', 'C'] },
+    { title: 'Section 2', data: ['D', 'E', 'F'] },
+    { title: 'Section 1', data: ['G', 'H', 'I'] },
+    { title: 'Section 2', data: ['J', 'K', 'L'] },
+  ];
 
-        if (isEnabled) {
-            setEmailNotifications(false);
-            setPushNotifications(false);
-        }
-    };
+  return (
+    <NativeBaseProvider>
+      {/* StatusBar */}
+      <StatusBar backgroundColor="black" barStyle="light-content" />
+      
+      {/* KeyboardAvoidingView */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        {/* ScrollView */}
+        <ScrollView flex={1} bg="coolGray.100">
 
-    return (
-        <Center flex={1} bg="gray.50">
-            <Box
-                p="5"
-                alignItems="center"
-                bg="white"
-                borderRadius="lg"
-                shadow={1}
-                width="90%"
-                maxW="400px"
-            >
-                <VStack space={4} width="100%">
-                    <Text fontSize="xl" bold color="primary.500">
-                        Configuración de Notificaciones
-                    </Text>
+          {/* FlatList */}
+          <Box py={4} px={3}>
+            <Text fontSize="lg" fontWeight="bold" mb={2}>FlatList</Text>
+            <FlatList
+              data={items}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <Box py={2} px={3} bg="white" my={1} borderRadius={8} shadow={2}>
+                  <Text>{item.name}</Text>
+                </Box>
+              )}
+            />
+          </Box>
 
-                    <HStack space={3} alignItems="center">
-                        <Text fontSize="md" color="gray.700">Activar Notificaciones</Text>
-                        <Switch
-                            isChecked={isEnabled}
-                            onToggle={toggleMainNotification}
-                            colorScheme="teal"
-                        />
-                    </HStack>
+          {/* SectionList */}
+          <Box py={4} px={3}>
+            <Text fontSize="lg" fontWeight="bold" mb={2}>SectionList</Text>
+            <SectionList
+              sections={sections}
+              keyExtractor={(item, index) => item + index}
+              renderItem={({ item }) => (
+                <Box py={2} px={3} bg="white" my={1} borderRadius={8} shadow={2}>
+                  <Text>{item}</Text>
+                </Box>
+              )}
+              renderSectionHeader={({ section: { title } }) => (
+                <Box bg="blue.200" py={1} px={3}>
+                  <Text fontSize="md" fontWeight="bold">{title}</Text>
+                </Box>
+              )}
+            />
+          </Box>
 
-                    <HStack alignItems="center" space={2}>
-                        <Icon
-                            as={Ionicons}
-                            name={isEnabled ? "notifications" : "notifications-off"}
-                            size="md"
-                            color={isEnabled ? "teal.500" : "gray.400"}
-                        />
-                        <Text fontSize="md" color="gray.600">
-                            Estado: {isEnabled ? "Activadas" : "Desactivadas"}
-                        </Text>
-                    </HStack>
-
-                    {isEnabled && (
-                        <VStack space={3} mt={4}>
-                            <HStack space={3} alignItems="center">
-                                <Text fontSize="md" color="gray.700">Notificaciones por Email</Text>
-                                <Switch
-                                    isChecked={emailNotifications}
-                                    onToggle={() => setEmailNotifications(!emailNotifications)}
-                                    colorScheme="blue"
-                                />
-                            </HStack>
-
-                            <HStack space={3} alignItems="center">
-                                <Text fontSize="md" color="gray.700">Notificaciones Push</Text>
-                                <Switch
-                                    isChecked={pushNotifications}
-                                    onToggle={() => setPushNotifications(!pushNotifications)}
-                                    colorScheme="purple"
-                                />
-                            </HStack>
-                        </VStack>
-                    )}
-                </VStack>
-                <Button
-                onPress={() => navigation.navigate('Alert')}
-                size="lg"
-                width="80%"
-                _text={{ fontWeight: 'bold' }}
-                bg="secondary.500"
-                _pressed={{ bg: 'secondary.600' }}
-                shadow={3}
-            >
-                Alertas
-            </Button>
-            </Box>
-        </Center>
-    );
+          {/* Input y botón */}
+          <Box py={4} px={3} alignItems="center">
+            <Input
+              placeholder="Type something..."
+              bg="white"
+              borderRadius={8}
+              shadow={2}
+              mb={4}
+              w="90%"
+            />
+            <Button onPress={() => alert('Button pressed!')}>Submit</Button>
+          </Box>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </NativeBaseProvider>
+  );
 };
 
-export default Config;
+export default ConfigScreen;
