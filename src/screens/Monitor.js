@@ -1,195 +1,180 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { NativeBaseProvider, Box, Button, HStack, 
-    StatusBar, Center, Menu, Pressable, HamburgerIcon, Divider,
-    Modal, FormControl, Input, AlertDialog, Popover } from 'native-base';
+import React from 'react';
+import { NativeBaseProvider, StatusBar, VStack, Center, PresenceTransition, Switch, Image, Pressable, HStack, Slide, Alert, Text, Box, CheckIcon, Stagger, Icon, IconButton, Button, useDisclose } from 'native-base';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import * as ImagePicker from 'expo-image-picker';
 
-const AlertExample = () => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const onClose = () => setIsOpen(false);
-    const cancelRef = React.useRef(null);
-  
-    return (
-      <Center>
-        <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)}>
-          Eliminar cliente
-        </Button>
-        <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
-          <AlertDialog.Content>
-            <AlertDialog.CloseButton />
-            <AlertDialog.Header>Eliminar cliente</AlertDialog.Header>
-            <AlertDialog.Body>
-            Esto eliminará todos los datos relacionados con Alex. 
-            Esta acción no se puede revertir.
-            Los datos eliminados no se pueden recuperar.
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-              <Button.Group space={2}>
-                <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
-                  Cancelar
-                </Button>
-                <Button colorScheme="danger" onPress={onClose}>
-                  Eliminar
-                </Button>
-              </Button.Group>
-            </AlertDialog.Footer>
-          </AlertDialog.Content>
-        </AlertDialog>
-      </Center>
-    );
-  };
 
-  const MenuExample = () => {
-    return (
-      
-        <Menu w="190" trigger={triggerProps => {
-              return (<Pressable accessibilityLabel="More options menu" {...triggerProps}
-                  bg="green.500"  p={3} borderRadius="4">
-                  <HamburgerIcon color="white" /> </Pressable>); }}>
-              
-              {/*---------PRIMER MENÚ--------------*/}
-              {/* 
-              <Menu.Item>Opcion 1</Menu.Item>
-              <Menu.Item>Opcion 2</Menu.Item>
-              <Menu.Item>Opcion 3</Menu.Item>
-              <Menu.Item isDisabled>Opcion 4</Menu.Item> */}
-          
-              {/*---------SEGUNDO MENÚ--------------*/}
-              {/*   */}
-                  <Menu.Group title="Grupo 1">
-                      <Menu.Item>Opcion 1</Menu.Item>
-                      <Menu.Item>Opcion 2</Menu.Item>
-                  </Menu.Group>
-                      <Divider mt="3" w="100%" />
-                  <Menu.Group title="Grupo 2">
-                      <Menu.Item>Opcion 1</Menu.Item>
-                      <Menu.Item>Opcion 2</Menu.Item>
-                  </Menu.Group>  
-             
-  
-              {/*---------TERCER MENÚ--------------*/}
-              {/* 
-                  <Menu.OptionGroup defaultValue="Op1" title="Grupo 1" type="radio">
-                      <Menu.ItemOption value="Op1">Opcion 1</Menu.ItemOption>
-                      <Menu.ItemOption value="Op2">Opcion 2</Menu.ItemOption>
-                  </Menu.OptionGroup>
-                      <Divider mt="3" w="100%" />
-                  <Menu.OptionGroup title="Grupo 2" type="checkbox">
-                      <Menu.ItemOption value="Op1">Opcion 1</Menu.ItemOption>
-                      <Menu.ItemOption value="Op2">Opcion 2</Menu.ItemOption>
-                  </Menu.OptionGroup>
-              */}
-        </Menu>
-      
-    );
-  };
-
-  const ModalExample = () => {
-    const [showModal, setShowModal] = useState(false);
-  
-    return (
-      <Center>
-        <Button onPress={() => setShowModal(true)}>Contactanos</Button>
-        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          <Modal.Content maxWidth="400px">
-            <Modal.CloseButton />
-            <Modal.Header>Contactanos</Modal.Header>
-            <Modal.Body>
-              <FormControl>
-                <FormControl.Label>Nombre</FormControl.Label>
-                <Input />
-              </FormControl>
-              <FormControl mt="3">
-                <FormControl.Label>Correo</FormControl.Label>
-                <Input />
-              </FormControl>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button.Group space={2}>
-                <Button colorScheme="blueGray" onPress={() => setShowModal(false)}>
-                  Cancelar
-                </Button>
-                <Button onPress={() => setShowModal(false)}>
-                  Guardar
-                </Button>
-              </Button.Group>
-            </Modal.Footer>
-          </Modal.Content>
-        </Modal>
-      </Center>
-    );
-  };
-
-  const PopoverExample = () => {
-    return <Box w="100%" alignItems="center">
-        <Popover trigger={triggerProps => {
-        return <Button {...triggerProps} colorScheme="amber">
-                Eliminar cliente
-              </Button>;
+const Stag = () => {
+  const {
+    isOpen,
+    onToggle
+  } = useDisclose();
+  return <Center>
+    <Box alignItems="center" minH="220">
+      <Stagger visible={isOpen} initial={{
+        opacity: 0,
+        scale: 0,
+        translateY: 34
+      }} animate={{
+        translateY: 0,
+        scale: 1,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          mass: 0.8,
+          stagger: {
+            offset: 30,
+            reverse: true
+          }
+        }
+      }} exit={{
+        translateY: 34,
+        scale: 0.5,
+        opacity: 0,
+        transition: {
+          duration: 100,
+          stagger: {
+            offset: 30,
+            reverse: true
+          }
+        }
       }}>
-          <Popover.Content accessibilityLabel="Delete Customerd" w="56">
-            <Popover.Arrow />
-            <Popover.CloseButton />
-            <Popover.Header>Eliminar cliente</Popover.Header>
-            <Popover.Body>
-              Esto eliminará todos los datos relacionados con Alex. 
-              Esta acción no se puede revertir.
-              Los datos eliminados no se pueden recuperar.
-            </Popover.Body>
-            <Popover.Footer justifyContent="flex-end">
-              <Button.Group space={2}>
-                <Button colorScheme="coolGray">
-                  Cancelar
-                </Button>
-                <Button colorScheme="danger">Eliminar</Button>
-              </Button.Group>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover>
-      </Box>;
-  
+        <IconButton mb="4" variant="solid" bg="indigo.500" colorScheme="indigo" borderRadius="full" icon={<Icon as={MaterialIcons} size="6" name="location-pin" _dark={{
+          color: "warmGray.50"
+        }} color="warmGray.50" />} />
+        <IconButton mb="4" variant="solid" bg="yellow.400" colorScheme="yellow" borderRadius="full" icon={<Icon as={MaterialCommunityIcons} _dark={{
+          color: "warmGray.50"
+        }} size="6" name="microphone" color="warmGray.50" />} />
+        <IconButton mb="4" variant="solid" bg="teal.400" colorScheme="teal" borderRadius="full" icon={<Icon as={MaterialCommunityIcons} _dark={{
+          color: "warmGray.50"
+        }} size="6" name="video" color="warmGray.50" />} />
+        <IconButton mb="4" variant="solid" bg="red.500" colorScheme="red" borderRadius="full" icon={<Icon as={MaterialIcons} size="6" name="photo-library" _dark={{
+          color: "warmGray.50"
+        }} color="warmGray.50" />} />
+      </Stagger>
+    </Box>
+    <HStack alignItems="center">
+      <IconButton variant="solid" borderRadius="full" size="lg" onPress={onToggle} bg="cyan.400" icon={<Icon as={MaterialCommunityIcons} size="6" name="dots-horizontal" color="warmGray.50" _dark={{
+        color: "warmGray.50"
+      }} />} />
+    </HStack>
+  </Center>;
 };
 
 const MonitorScreen = () => {
-    return (
-        <NativeBaseProvider>
-          <Box flex={1} safeArea>
-    
-                {/*---------------------Encabezado-------------------------*/}
-                <Box bg="white" py={4} alignItems="center">
-                <Text fontSize="5xl" color="black" fontWeight="bold">Overlay</Text>
-                </Box>
-    
-            <HStack flex={1}>
-              {/*---------------------Primer espacio con AlertDialog-------------------------*/}
-              <Box flex={1} bg="coolGray.400" justifyContent="flex-start" alignItems="center" p={4}>
-                <Text fontSize="xl" mt={5}>AlertDialog</Text>
-                <Center flex={1}><AlertExample /></Center>  
-              </Box>
-    
-              {/*---------------------Segundo espacio con Menu------------------------------*/}
-              <Box flex={1} bg="coolGray.400" justifyContent="flex-start" alignItems="center" p={4}>
-                <Text fontSize="xl" mt={5}>Menu</Text>
-                <Center flex={1}><MenuExample /></Center>    
-              </Box>
-    
-              {/*---------------------Tercer espacio con Modal------------------------------*/}
-              <Box flex={1} bg="coolGray.400" justifyContent="flex-start" alignItems="center" p={4}>
-                <Text fontSize="xl" mt={5}>Modal</Text>
-                <Center flex={1}><ModalExample /></Center>
-              </Box>
-    
-              {/*---------------------Cuarto espacio con Popover------------------------------*/}
-              <Box flex={1} bg="coolGray.400" justifyContent="flex-start" alignItems="center" p={4}>
-                <Text fontSize="xl" mt={5}>Popover</Text>
-                 <Center flex={1}><PopoverExample /></Center>
-              </Box>
-    
-            </HStack>
-            <StatusBar barStyle="auto" />
-          </Box>
-        </NativeBaseProvider>
-      );
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [useScaleTransition, setUseScaleTransition] = React.useState(false);
+  const [useSlideFunction, setSlideFunction] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState(null);
+  const [isSlideOpen, setIsSlideOpen] = React.useState(false);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
     }
+  };
+
+  return (
+    <NativeBaseProvider>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="auto" />
+        <VStack w='100%' alignItems='center'>
+
+          <Center>
+            PresenceTransition
+            <HStack space={4} alignItems="center">
+              <Switch
+                isChecked={useScaleTransition}
+                onToggle={() => setUseScaleTransition(!useScaleTransition)}
+                value="scaleTransition"
+                accessibilityLabel="Use Scale Transition"
+              />
+              <Button onPress={() => setIsOpen(!isOpen)}>
+                {isOpen ? "Ocultar" : "Mostrar"}
+              </Button>
+            </HStack>
+          </Center>
+
+          <Center mt="10">
+            <PresenceTransition
+              visible={isOpen}
+              initial={useScaleTransition ? { opacity: 0, scale: 0 } : { opacity: 0 }}
+              animate={useScaleTransition ? { opacity: 1, scale: 1, transition: { duration: 250 } } : { opacity: 1, transition: { duration: 250 } }}
+            >
+              {useScaleTransition ? (
+                <Pressable onPress={pickImage}>
+                  <Image
+                    source={{ uri: selectedImage || 'https://via.placeholder.com/200' }}
+                    alt="Selected Image"
+                    size="200"
+                    rounded="md"
+                  />
+                </Pressable>
+              ) : (
+                <Center bg="teal.500" rounded="md" w="200" h="200" _text={{ color: "white" }}>
+                  Transición Suave
+                </Center>
+              )}
+            </PresenceTransition>
+          </Center>
+
+          <Center mt="10" mb="10">
+            Slide
+            <HStack space={4} alignItems="center">
+              <Switch
+                isChecked={useSlideFunction}
+                onToggle={() => setSlideFunction(!useSlideFunction)}
+                value="slideFunction"
+                accessibilityLabel="Use Slide"
+              />
+              <Button onPress={() => setIsSlideOpen(!isSlideOpen)}>
+                {isSlideOpen ? "Ocultar" : "Mostrar"}
+              </Button>
+            </HStack>
+          </Center>
+
+          <Slide in={isSlideOpen} placement="top">
+            {useSlideFunction ? (
+              <Box w="100%" position="absolute" p="2" borderRadius="xs" bg="emerald.100" alignItems="center" justifyContent="center" _dark={{ bg: "emerald.200" }} safeArea>
+                <HStack space={2}>
+                  <CheckIcon size="4" color="emerald.600" mt="1" _dark={{ color: "emerald.700" }} />
+                  <Text color="emerald.600" textAlign="center" _dark={{ color: "emerald.700" }} fontWeight="medium">
+                    Compra satisfactoria. Entrega en curso.
+                  </Text>
+                </HStack>
+              </Box>
+            ) : (
+              <Alert justifyContent="center" status="error" safeAreaTop={8}>
+                <Alert.Icon />
+                <Text color="error.600" fontWeight="medium">
+                  No hay conexión a Internet.
+                </Text>
+              </Alert>
+            )}
+          </Slide>
+
+          <Stag/>
+
+        </VStack>
+      </SafeAreaView>
+    </NativeBaseProvider >
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default MonitorScreen;
