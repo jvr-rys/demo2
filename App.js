@@ -4,16 +4,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { Box, NativeBaseProvider, VStack, useColorModeValue, useColorMode, useTheme } from 'native-base';
 import theme from './theme';
-import ToggleDarkMode from './ToggleDarkMode';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { RobotoMono_400Regular } from '@expo-google-fonts/roboto-mono';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/screens/Home';
 import Reports from './src/screens/Reports';
 import Monitor from './src/screens/Monitor';
 import Profile from './src/screens/Profile';
 import Config from './src/screens/Config';
-import Register from './src/screens/Register';
 import Login from './src/screens/Login';
-import ProfileSummary from './src/screens/ProfileSummary'
+import ProfileSummary from './src/screens/ProfileSummary';
+import ForgotPassword from './src/screens/ForgotPass';
+import Activity from './src/screens/Activity';
+import Sensors from './src/screens/Sensors';
 import { SafeAreaView } from "react-native-web";
 
 const Tab = createBottomTabNavigator();
@@ -64,27 +68,48 @@ const MainTab = () => {
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [fontsLoaded] = useFonts({
+    RobotoMono_400Regular,
+  });
+  const bgColor = useColorModeValue('light.background.50',
+    'dark.background.900');
+  const textColor = useColorModeValue('light.text.50', 'dark.text.50');
 
+  React.useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    SplashScreen.preventAutoHideAsync();
+    return null;
+  }
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer >
         <SafeAreaView style={{ flex: 1 }}>
-          <VStack flex={1} bg={useColorModeValue("light.background.50",
-            "dark.background.900")}>
-            <Box position="absolute" zIndex={10} right={4} bg={useColorModeValue('light.background.50',
-              'dark.background.900')}>
-              <ToggleDarkMode />
-            </Box>
+          <VStack flex={1} bg={bgColor}>
             <Stack.Navigator initialRouteName={isAuthenticated ? "MainTab" :
               "Login"}>
               <Stack.Screen name="Login" options={{ headerShown: false }}>
                 {() => <Login setIsAuthenticated={setIsAuthenticated} />}
               </Stack.Screen>
-              <Stack.Screen name="Register" options={{ headerShown: false }}>
-                {() => <Register setIsAuthenticated={setIsAuthenticated} />}
-              </Stack.Screen>
               <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
               <Stack.Screen name="ProfileSummary" component={ProfileSummary} options={{ headerShown: false }} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
+              <Stack.Screen name="Activity" component={Activity} options={{
+                headerStyle: {
+                  backgroundColor: '#0256CD',
+                  borderBottomWidth: 0, elevation: 0,
+                }, headerTitle: '', headerTintColor: 'white',
+              }} />
+              <Stack.Screen name="Sensors" component={Sensors} options={{
+                headerStyle: {
+                  backgroundColor: bgColor,
+                  borderBottomWidth: 0, elevation: 0,
+                }, headerTitle: '', headerTintColor: textColor,
+              }} />
             </Stack.Navigator>
           </VStack>
         </SafeAreaView>

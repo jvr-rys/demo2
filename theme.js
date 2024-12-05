@@ -2,8 +2,8 @@ import { extendTheme } from 'native-base';
 
 const theme = extendTheme({
   config: {
-    initialColorMode: 'light', 
-    useSystemColorMode: true, 
+    initialColorMode: 'light',
+    useSystemColorMode: true,
   },
   colors: {
     light: {
@@ -24,9 +24,15 @@ const theme = extendTheme({
       },
     },
     primary: {
+      400: '#0256CD',
       500: '#0073e6',
       600: '#0066cc',
     },
+  },
+  fonts: {
+    heading: 'RobotoMono_400Regular',
+    body: 'RobotoMono_400Regular',
+    mono: 'RobotoMono_400Regular',
   },
   components: {
     Button: {

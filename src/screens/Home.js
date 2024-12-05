@@ -1,9 +1,9 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, TouchableOpacity } from 'react-native';
 import { Center, Box, Text, Button, HStack, useColorModeValue } from 'native-base';
 import { PieChart } from 'react-native-chart-kit';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     const bgColor = useColorModeValue('light.background.50', 'dark.background.900');
     const textColor = useColorModeValue('black', 'white');
     const screenWidth = Dimensions.get('window').width;
@@ -11,7 +11,7 @@ const HomeScreen = () => {
     return (
         <Center flex={1} bg={bgColor}>
             <Box
-                bg="blue.500"
+                bg="primary.400"
                 position="absolute"
                 top={0}
                 left={0}
@@ -21,15 +21,14 @@ const HomeScreen = () => {
                 py={4}
                 px={4}
             >
-                <Text fontSize="xl" fontWeight="bold" color="white" textAlign="center">
+                <Text fontSize="3xl" fontWeight="bold" color="white" textAlign="center" letterSpacing={6}>
                     Activity
                 </Text>
-                <HStack justifyContent="center" space={4} mt={2}>
+                <HStack justifyContent="center" space={6} mt={2}>
                     {['Day', 'Week', 'Month', 'Year'].map((label) => (
                         <Button
                             key={label}
-                            variant="outline"
-                            borderColor="white"
+                            variant="ghost"
                             _text={{ color: 'white' }}
                             size="sm"
                         >
@@ -37,23 +36,25 @@ const HomeScreen = () => {
                         </Button>
                     ))}
                 </HStack>
-                <Box alignItems="center">
-                    <PieChart
-                        data={[
-                            { name: 'CO', population: 9, color: 'red', legendFontColor: 'white', legendFontSize: 12 },
-                            { name: 'H2', population: 15, color: 'blue', legendFontColor: 'white', legendFontSize: 12 },
-                            { name: 'CH4', population: 31, color: 'green', legendFontColor: 'white', legendFontSize: 12 },
-                            { name: 'CO2', population: 45, color: 'yellow', legendFontColor: 'white', legendFontSize: 12 },
-                        ]}
-                        width={screenWidth * 0.9}
-                        height={200}
-                        chartConfig={{
-                            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                        }}
-                        accessor="population"
-                        backgroundColor="transparent"
-                    />
-                </Box>
+                <TouchableOpacity onPress={() => navigation.navigate('Activity')}>
+                    <Box alignItems="center">
+                        <PieChart
+                            data={[
+                                { name: 'CO', population: 9, color: 'red', legendFontColor: 'white', legendFontSize: 12 },
+                                { name: 'H2', population: 15, color: 'blue', legendFontColor: 'white', legendFontSize: 12 },
+                                { name: 'CH4', population: 31, color: 'green', legendFontColor: 'white', legendFontSize: 12 },
+                                { name: 'CO2', population: 45, color: 'yellow', legendFontColor: 'white', legendFontSize: 12 },
+                            ]}
+                            width={screenWidth * 0.9}
+                            height={200}
+                            chartConfig={{
+                                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                            }}
+                            accessor="population"
+                            backgroundColor="transparent"
+                        />
+                    </Box>
+                </TouchableOpacity>
             </Box>
             <Box
                 bg="black"
@@ -63,7 +64,7 @@ const HomeScreen = () => {
                 borderColor="coolGray.400"
                 height="5%"
                 justifyContent="center"
-                alignItems="center" 
+                alignItems="center"
                 mb={2}
             >
                 <Text
@@ -77,22 +78,6 @@ const HomeScreen = () => {
                 </Text>
             </Box>
             <HStack space={4} w="90%" mt={2}>
-                <Box
-                    bg="white"
-                    borderWidth={1}
-                    borderColor="coolGray.300"
-                    borderRadius={8}
-                    p={4}
-                    shadow={2}
-                    flex={1}
-                >
-                    <Text fontSize="md" fontWeight="bold" mb={2} color="black">
-                        Lab-1
-                    </Text>
-                    <Text fontSize="sm" color="black">Online</Text>
-                    <Text fontSize="sm" color="black">Alarm: On</Text>
-                    <Text fontSize="sm" color="black">Last Update: 1s</Text>
-                </Box>
 
                 <Box
                     bg="white"
@@ -103,15 +88,35 @@ const HomeScreen = () => {
                     shadow={2}
                     flex={1}
                 >
-                    <Text fontSize="md" fontWeight="bold" mb={2} color="black">
-                        Lab-2
-                    </Text>
-                    <Text fontSize="sm" color="black">Online</Text>
-                    <Text fontSize="sm" color="black">Alarm: Off</Text>
-                    <Text fontSize="sm" color="black">Last Update: 1m</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Sensors')}>
+                        <Text fontSize="md" fontWeight="bold" mb={2} color="black">
+                            Lab-1
+                        </Text>
+                        <Text fontSize="sm" color="black">Online</Text>
+                        <Text fontSize="sm" color="black">Alarm: On</Text>
+                        <Text fontSize="sm" color="black">Last Update: 1s</Text>
+                    </TouchableOpacity>
+                </Box>
+                <Box
+                    bg="white"
+                    borderWidth={1}
+                    borderColor="coolGray.300"
+                    borderRadius={8}
+                    p={4}
+                    shadow={2}
+                    flex={1}
+                >
+                    <TouchableOpacity onPress={() => navigation.navigate('Sensors')}>
+                        <Text fontSize="md" fontWeight="bold" mb={2} color="black">
+                            Lab-2
+                        </Text>
+                        <Text fontSize="sm" color="black">Online</Text>
+                        <Text fontSize="sm" color="black">Alarm: Off</Text>
+                        <Text fontSize="sm" color="black">Last Update: 1m</Text>
+                    </TouchableOpacity>
                 </Box>
             </HStack>
-        </Center>
+        </Center >
     );
 };
 
