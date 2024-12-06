@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 import { Center, Box, Text, Button, HStack, useColorModeValue } from 'native-base';
 import { BarChart, PieChart } from 'react-native-chart-kit';
 
-const ActivityScreen = () => {
+const ActivityScreen = ({ navigation }) => {
     const bgColor = useColorModeValue('light.background.50', 'dark.background.900');
     const textColor = useColorModeValue('light.text.50', 'dark.text.50');
     const screenWidth = Dimensions.get('window').width;
@@ -21,6 +21,16 @@ const ActivityScreen = () => {
                 py={4}
                 px={4}
             >
+                <Button variant='ghost' _text={{
+                    color: textColor,
+                    fontSize: '24px',
+                    fontWeight: 'bold',
+                }} size='lg'
+                    position='absolute' alignSelf='flex-start'
+                    top={1} left={1}
+                    onPress={() => navigation.navigate('Home')}>
+                    {'<'}
+                </Button>
                 <Text fontSize="3xl" fontWeight="bold" color="white" textAlign="center" letterSpacing={6}>
                     Activity
                 </Text>

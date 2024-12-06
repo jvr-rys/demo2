@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
-import { Box, NativeBaseProvider, VStack, useColorModeValue, useColorMode, useTheme } from 'native-base';
+import { Box, NativeBaseProvider, VStack, useColorModeValue, useColorMode, useTheme, View } from 'native-base';
 import theme from './theme';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -98,18 +98,8 @@ const App = () => {
               <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
               <Stack.Screen name="ProfileSummary" component={ProfileSummary} options={{ headerShown: false }} />
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
-              <Stack.Screen name="Activity" component={Activity} options={{
-                headerStyle: {
-                  backgroundColor: '#0256CD',
-                  borderBottomWidth: 0, elevation: 0,
-                }, headerTitle: '', headerTintColor: 'white',
-              }} />
-              <Stack.Screen name="Sensors" component={Sensors} options={{
-                headerStyle: {
-                  backgroundColor: bgColor,
-                  borderBottomWidth: 0, elevation: 0,
-                }, headerTitle: '', headerTintColor: textColor,
-              }} />
+              <Stack.Screen name="Activity" component={Activity} options={{ headerShown: false }} />
+              <Stack.Screen name="Sensors" component={Sensors} options={{ headerShown: false }} />
             </Stack.Navigator>
           </VStack>
         </SafeAreaView>
