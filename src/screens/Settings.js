@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native';
 
-const ProfileScreen = () => {
+const ConfigScreen = () => {
     return (
         <View style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
-            <Text>Profile Screen</Text>
+            <Text>Settings Screen</Text>
         </View>
     );
 }
 
-export default ProfileScreen;
+export default ConfigScreen;

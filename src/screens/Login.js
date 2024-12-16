@@ -3,13 +3,15 @@ import { Text } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Link, Center } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = ({ setIsAuthenticated }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const LoginScreen = ({ setIsAuthenticated, navigation, route }) => {
+    const [userEmail, setEmail] = useState('');
+    const [userPassword, setPassword] = useState('');
     const navigation = useNavigation();
 
+    const { name, email, phone, avatar } = route.params || {};
+
     const handleLogin = () => {
-        if (email && password) { 
+        if (userEmail === email && userPassword === password) { 
             setIsAuthenticated(true);
             navigation.navigate('MainTab'); 
         } else {
@@ -19,6 +21,13 @@ const LoginScreen = ({ setIsAuthenticated }) => {
 
     return (
         <Center w="100%">
+            <Image
+                    source={
+                        require('../../assets/splash.png')
+                    }
+                    style={{ width: '100%', height: "35%", marginBottom: 0 }}
+                    resizeMode="contain"
+                />
             <Box safeArea p="2" py="8" w="90%" maxW="290">
                 <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
                     color: "warmGray.50"

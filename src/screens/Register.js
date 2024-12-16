@@ -3,23 +3,37 @@ import { Text } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, HStack, Input, Button, Center } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
-const RegisterScreen = ({ setIsAuthenticated }) => {
+const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigation = useNavigation();
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (password === confirmPassword) {
-            setIsAuthenticated(true); 
-            navigation.navigate('MainTab'); 
+            try {
+                navigation.navigate('Success', {
+                    name: name,
+                    email: email,
+                    password: password,
+                  });
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
         } else {
-            alert('Passwords do not match'); 
+            alert('Passwords do not match');
         }
     };
 
     return (
         <Center w="100%">
+            <Image
+                    source={
+                        require('../../assets/splash.png')
+                    }
+                    style={{ width: '100%', height: "35%", marginBottom: 0 }}
+                    resizeMode="contain"
+                />
             <Box safeArea p="2" py="8" w="90%" maxW="290">
                 <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
                     color: "warmGray.50"
@@ -29,7 +43,7 @@ const RegisterScreen = ({ setIsAuthenticated }) => {
                 <Heading mt="1" _dark={{
                     color: "warmGray.200"
                 }} color="coolGray.600" fontWeight="medium" size="xs">
-                    Sign in to continue!
+                    Register to continue!
                 </Heading>
                 <VStack space={3} mt="5">
                     <FormControl>
